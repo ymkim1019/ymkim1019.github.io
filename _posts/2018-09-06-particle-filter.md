@@ -1,6 +1,7 @@
 ---
 title: A Tutorial on Particle Filters
 date: 2018-09-06 14:00:00 +0900
+use_math: true
 tags:
   - Optimization
   - Particle Filter
