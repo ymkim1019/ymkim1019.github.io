@@ -1,7 +1,6 @@
 ---
 title: A Tutorial on Particle Filters
 date: 2018-09-06 14:00:00 +0900
-use_math : true
 tags:
   - Optimization
   - Particle Filter
@@ -9,6 +8,9 @@ tags:
 ---
 
 # A Tutorial on Particle Filters
+
+test eq
+$a_b$
 
 Non-gaussian model에서의 최적화 문제를 풀기 위해 particle filter에 대한 study를 진행한다. 다음의 링크를 참조하였다.
 
