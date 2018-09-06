@@ -7,10 +7,8 @@ tags:
   - Bayesian
 ---
 
-# A Tutorial on Particle Filters
-
 test eq
-$a_b$
+$$a_b$$
 
 Non-gaussian model에서의 최적화 문제를 풀기 위해 particle filter에 대한 study를 진행한다. 다음의 링크를 참조하였다.
 
