@@ -19,7 +19,7 @@ repository               : "ymkim1019/ymkim1019.github.io" # GitHub username/rep
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
-mathjax: true
+mathjax                  : true
 comments:
   provider               : "disqus" # false (default), "disqus", "discourse", "facebook", "google-plus", "staticman", "staticman_v2" "custom"
   disqus:
