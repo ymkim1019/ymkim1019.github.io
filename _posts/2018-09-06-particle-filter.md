@@ -50,10 +50,11 @@ Non-Gaussian system model에서의 최적화 문제를 풀기 위해 particle fi
 ### Update
 이산시간 $k$ 시점의 measurement $z_k$가 얻어졌을 때, Bayes' rule로부터 prior를 update할 수 있다.
 
-$$\begin{aligned}p(x_k|z_{1:k})=&\dfrac{p(x_k, z_{1:k})}{p(z_{1:k})}
+$$\begin{aligned}
+p(x_k|z_{1:k})=&\dfrac{p(x_k, z_{1:k})}{p(z_{1:k})}
 \\=&\dfrac{p(x_k, z_k, z_{1:k-1})}{p(z_{1:k})}
-\\=&\dfrac{p(z_k|x_k, z_{1:k-1})p(x_k, z_{1:k-1})}{p(z_{1:k})}\tag{1}
-\end{aligned}$$
+\\=&\dfrac{p(z_k|x_k, z_{1:k-1})p(x_k, z_{1:k-1})}{p(z_{1:k})}
+\end{aligned}\tag{1}$$
 
 (세번째 줄은 조건부 확률의 정의)
 
@@ -117,13 +118,13 @@ $$p(x_{0:k}|z_{1:k})\approx\sum^{N_s}_{i=1}w^i_k\delta(x_{0:k}-x^i_{0:k})\tag{5}
 
 $\delta(.)$는 [Dirac delta function](https://en.m.wikipedia.org/wiki/Dirac_delta_function)이며, narrow spike function을 표현하기 위해 사용된다. 신호처리 분야에서는 impulse 함수로 불리기도 한다.
 
-$${
+$$
  \delta(x)= 
 \begin{dcases}
     1,& \text{if } x = 0\\
     0,              & \text{otherwise}
 \end{dcases}
-}\tag{6}$$
+\tag{6}$$
 
 실제로 particle이 있는 point에서만 해당 particle의 weight가 pdf값이 된다(discrete weighted approximation). 무수히 paricle이 많으면 모든 point에 대해 값이 존재하고, 이 값들의 sum은 1이므로 pdf를 set of particles가 완전히 표현한다고 할 수 있다. 
 
