@@ -41,7 +41,7 @@ Non-Gaussian system model에서의 최적화 문제를 풀기 위해 particle fi
 그러나 system의 state를 우리는 그대로 알 수는 없고 관찰할 뿐이다.
 * $z_k=h_k(x_k, n_k)$ : measurement $z_k$는 system state $x_k$와 관측 noise $n_k$로부터 얻어지며, $h_k$가 system state measurement model이다.
 
-여기서 모든 noise는 i.i.d. 라고 가정한다.  결국 state tracking problem은 pdf $p(x_k|z_{1:k})$을 구성하는 문제이다. 이제 iterative 하게 해를 구하는 과정을 알아보자.
+여기서 모든 noise는 i.i.d. 라고 가정한다.  결국 state tracking problem은 pdf $p(x_k\textbar z_{1:k})$을 구성하는 문제이다. 이제 iterative 하게 해를 구하는 과정을 알아보자.
 
 ### Prediction
 * $p(x_0|z_0)\equiv p(x_0)$ : prior
