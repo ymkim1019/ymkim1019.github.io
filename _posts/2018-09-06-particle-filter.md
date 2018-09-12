@@ -44,8 +44,8 @@ Non-Gaussian system model에서의 최적화 문제를 풀기 위해 particle fi
 여기서 모든 noise는 i.i.d. 라고 가정한다.  결국 state tracking problem은 pdf $p(x_k\vert z_{1:k})$을 구성하는 문제이다. 이제 iterative 하게 해를 구하는 과정을 알아보자.
 
 ### Prediction
-* $p(x_0|z_0)\equiv p(x_0)$ : prior
-* $p(x_k|z_{1:k-1})=\int{p}(x_k|x_{k-1})p(x_{k-1}|z_{1:k-1})dx_{k-1}$ : prediction state로서 다음 state에 대한 marginal expectation 구하는 개념 ([Chapman Komogorov equation](https://en.m.wikipedia.org/wiki/Chapman%E2%80%93Kolmogorov_equation))이며, $p(x_k|x_{k-1})$는 $f_k$로부터 얻을 수 있다. 이전 이산시간 $k-1$ 시점에서의 pdf를 이용하여 다음 이산시간 $k$ 에서의 pdf를 구한다.
+* $p(x_0\vert z_0)\equiv p(x_0)$ : prior
+* $p(x_k\vert z_{1:k-1})=\int{p}(x_k\vert x_{k-1})p(x_{k-1}\vert z_{1:k-1})dx_{k-1}$ : prediction state로서 다음 state에 대한 marginal expectation 구하는 개념 ([Chapman Komogorov equation](https://en.m.wikipedia.org/wiki/Chapman%E2%80%93Kolmogorov_equation))이며, $p(x_k\vert x_{k-1})$는 $f_k$로부터 얻을 수 있다. 이전 이산시간 $k-1$ 시점에서의 pdf를 이용하여 다음 이산시간 $k$ 에서의 pdf를 구한다.
 
 ### Update
 이산시간 $k$ 시점의 measurement $z_k$가 얻어졌을 때, Bayes' rule로부터 prior를 update할 수 있다.
@@ -141,9 +141,9 @@ $$p(x)\approx\sum^{N_s}_{i=1}w^i_k\delta(x-x^i).\tag{7}$$
 
 만약 $x^i_{0:k}$가 $q(x_{0:k}|z_{1:k})$로부터 추출되었다면, weight는 다음과 같이 재정의 될 수 있다.
 
-$$w^i_k\propto\dfrac{p(x^i_{0:k}|z_{1:k})}{q(x^i_{0:k}|z_{1:k})}\tag{8}$$, where $w^i$'s are  normalized.
+$$w^i_k\propto\dfrac{p(x^i_{0:k}\vert z_{1:k})}{q(x^i_{0:k} \vert z_{1:k})}\tag{8}$$, where $w^i$'s are  normalized.
 
-$x$가 $q(x)$로부터 추출되었으므로 [principle of importance sampling](https://en.m.wikipedia.org/wiki/Importance_sampling)에 의해 그만큼의 확률로 weight를 나눠준다. 다시 sequential case로 돌아가보자. $k-1$ 시점에 $p(x^i_{0:k-1}|z^i_{0:k-1})$을 approximation하는 particle들이 존재할 것이고, 다음으로  새로운 sample들을 이용하여 $p(x^i_{0:k}|z^i_{0:k-1})$을 approximate해야 한다. importance density가 다음과 같이 factorize될 수 있다고 가정하자.
+$x$가 $q(x)$로부터 추출되었으므로 [principle of importance sampling](https://en.m.wikipedia.org/wiki/Importance_sampling)에 의해 그만큼의 확률로 weight를 나눠준다. 다시 sequential case로 돌아가보자. $k-1$ 시점에 $p(x^i_{0:k-1}\vert z^i_{0:k-1})$을 approximation하는 particle들이 존재할 것이고, 다음으로  새로운 sample들을 이용하여 $p(x^i_{0:k}\vert z^i_{0:k-1})$을 approximate해야 한다. importance density가 다음과 같이 factorize될 수 있다고 가정하자.
 
 $$q(x_{0:k}|z_{1:k})=q(x_k|x_{0:k-1},z_{1:k})q(x_{0:k-1}|z_{1:k-1}).\tag{9}$$
 
@@ -151,11 +151,11 @@ $$q(x_{0:k}|z_{1:k})=q(x_k|x_{0:k-1},z_{1:k})q(x_{0:k-1}|z_{1:k-1}).\tag{9}$$
 
 다시 아래의 식으로부터 시작해보자.
 
-$$p(x_{0:k}|z_{1:k})=\dfrac{p(z_k|x_{0:k})p(x_{0:k}|z_{1:k-1})}{p(z_k|z_{1:k-1})}.\tag{10}$$
+$$p(x_{0:k}\vert z_{1:k})=\dfrac{p(z_k\vert x_{0:k})p(x_{0:k}\vert z_{1:k-1})}{p(z_k\vert z_{1:k-1})}.\tag{10}$$
 
 분모의 오른쪽 term은 다음과 같이 decompose 될 수 있다.
 
-  $p(x_{0:k}|z_{1:k-1})=p(x_k|x_{0:k-1}|z_{1:k-1})p(x_{0:k-1}|z_{1:k-1})$
+  $p(x_{0:k}\vert z_{1:k-1})=p(x_k\vert x_{0:k-1}\vert z_{1:k-1})p(x_{0:k-1}\vert z_{1:k-1})$
 
 따라서,
 
@@ -166,8 +166,8 @@ p(x_{0:k}|z_{1:k})
 \end{aligned}\tag{11}.$$
 
 다음을 (11)에 적용하면, 
-* $p(z_k|x_{0:k})=p(z_k|x_k)$ : markov assumption
-* $p(x_k|x_{0:k-1}|z_{1:k-1})=p(x_k|x_{k-1})$ : $z$는 state variable $x$의 변화에 영향을 주지 않음
+* $p(z_k\vert x_{0:k})=p(z_k|x_k)$ : markov assumption
+* $p(x_k\vert x_{0:k-1}\vert z_{1:k-1})=p(x_k\vert x_{k-1})$ : $z$는 state variable $x$의 변화에 영향을 주지 않음
 
 $$=\dfrac{p(z_k|x_k)p(x_k|x_{k-1})p(x_{0:k-1}|z_{1:k-1})}{p(z_k|z_{1:k-1})}.\tag{12}$$
 
