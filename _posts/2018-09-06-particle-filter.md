@@ -120,10 +120,10 @@ $\delta(.)$는 [Dirac delta function](https://en.m.wikipedia.org/wiki/Dirac_delt
 
 $$
  \delta(x)= 
-\begin{dcases}
+\begin{cases}
     1,& \text{if } x = 0\\
     0,              & \text{otherwise}
-\end{dcases}
+\end{cases}
 \tag{6}$$
 
 실제로 particle이 있는 point에서만 해당 particle의 weight가 pdf값이 된다(discrete weighted approximation). 무수히 paricle이 많으면 모든 point에 대해 값이 존재하고, 이 값들의 sum은 1이므로 pdf를 set of particles가 완전히 표현한다고 할 수 있다. 
@@ -147,7 +147,7 @@ $x$가 $q(x)$로부터 추출되었으므로 [principle of importance sampling](
 
 $$q(x_{0:k}|z_{1:k})=q(x_k|x_{0:k-1},z_{1:k})q(x_{0:k-1}|z_{1:k-1}).\tag{9}$$
 
-그렇다면 sample $x^i_{0:k}\sim q(x_{0:k}|z_{1:k})$는 $x^i_{0:k-1}\sim q(x_{0:k-1}|z_{1:k-1})$과 $x^i_{k}\sim q(x_{0:k-1}|z_{1:k})$의 결합으로 얻어질 수 있다.
+그렇다면 sample $x^i_{0:k}\sim q(x_{0:k}\vert z_{1:k})$는 $x^i_{0:k-1}\sim q(x_{0:k-1}\vert z_{1:k-1})$과 $x^i_{k}\sim q(x_{0:k-1}\vert z_{1:k})$의 결합으로 얻어질 수 있다.
 
 다시 아래의 식으로부터 시작해보자.
 
@@ -166,7 +166,7 @@ p(x_{0:k}|z_{1:k})
 \end{aligned}\tag{11}.$$
 
 다음을 (11)에 적용하면, 
-* $p(z_k\vert x_{0:k})=p(z_k|x_k)$ : markov assumption
+* $p(z_k\vert x_{0:k})=p(z_k\vert x_k)$ : markov assumption
 * $p(x_k\vert x_{0:k-1}\vert z_{1:k-1})=p(x_k\vert x_{k-1})$ : $z$는 state variable $x$의 변화에 영향을 주지 않음
 
 $$=\dfrac{p(z_k|x_k)p(x_k|x_{k-1})p(x_{0:k-1}|z_{1:k-1})}{p(z_k|z_{1:k-1})}.\tag{12}$$
