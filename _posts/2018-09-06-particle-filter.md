@@ -1,3 +1,4 @@
+
 ---
 title: A Tutorial on Particle Filters for Online Nonlinear/Non-Gaussian Bayesian Tracking (1)
 date: 2018-09-12 17:09:00 +0900
@@ -93,7 +94,7 @@ $$p(z_k|z_{1:k-1})=\int{p(z_k|x_k)p(x_k|z_{1:k-1})}dk_x\tag{4}$$
 위 알고리즘 중, 본 문서에서는 particle filter에 대해 중점적으로 다룬다.
 
 ## Particle Filtering Methods
-### SIS Particle Filter
+### Sequential Importance Sampling (SIS) Particle Filter
 * Monte Carlo (MC) method that forms the basis for most sequential MC filters
 * Sequential MC approach is also known as bootstrap filtering, [condensation](https://endic.naver.com/enkrEntry.nhn?sLn=kr&entryId=4a70ba321a1e427e816ca55a4d7146c9&query=condensation) algorithm, particle filtering, and survial of the fittest.
 * MC simulation으로 Bayesian filter를 구현하는 테크닉
@@ -185,4 +186,46 @@ $$p(x_{k}|z_{1:k})\approx\sum^{N_s}_{i=1}w^i_k\delta(x_{k}-x^i_{k})\tag{14}.$$
 
 $N_s\rightarrow\infty$이면, (14)는 true posterior density에 가까워진다. SIS 알고리즘은 $q(x)$로부터 추출된 particle을 이용하여 반복적으로 weight를 업데이트하는 과정을 거친다.
 
-다음 post에서는 SIS 알고리즘의 문제점을 살펴보고 이를 개선한 알고리즘을 다룬다.
+#### Pseudo Code
+![image](https://user-images.githubusercontent.com/25606217/45534833-5c891580-b837-11e8-9116-7571b42592d9.jpg)
+(48) 대신 본문의 (13) 식으로 업데이트한다.
+
+
+#### Degeneracy Problem
+SIS particle filter의 가장 큰 문제는 degeneracy이다. 처음에는 모든 weight를 다음과 같이 uniform하게 초기화 했다고 가정하자. 
+
+$$w_k^i=\frac{1}{n_s}$$
+
+반복적으로 weight를 업데이트 하는 과정에서 실제 해와 동떨어진 대부분의 particle들은 점점 낮은 weight를 부여받고 (반복적으로 매우 작은 pdf값을 곱하므로 0에 가까워진다) 소수의 해와 가까운 particle만이 의미가 있는 weight를 갖는다. 매우 낮은 weight를 갖는 particle을 계속 pdf를 표현하는데 사용하는 것은 비효율적이다. 또한 가능하면 해의 근처에 많은 particle이 존재하는 것이 효율적이므로 의미없는 particle을 새로운 위치의 particle로 대체(resample)해야 한다. 현재 particle set의 Degeneracy를 측정하는 일반적인 수식은 
+
+$$
+N_{eff}=\dfrac{N_s}{1+Var(w_k^{*i})}
+\tag{1}
+$$
+
+where $N_{eff}$ is the number of effective samples in the current particle set and $w_k^{*i}$ is the "true weght". 그러나 trueweight의 variance를 evaluate하는 것이 어렵기 때문에 다음과 같이 $N_{eff}$를 estimate한다.
+
+$$
+\widehat{N_{eff}} = \dfrac{1}{\sum^{N_s}_{i=1}(w^i_k)^2}
+$$
+
+$N_{eff}$가 정의된 임계치 이하로 떨어지면 resampling 알고리즘(다양한 알고리즘이 존재)을 이용하여 새로운 particle을 생성한다. 
+
+### Generic Particle Filter
+Resampling algorithm까지 포함한 generic particle filter 알고리즘은 다음과 같다.
+![screenshot_20180914-161543_drive](https://user-images.githubusercontent.com/25606217/45535497-9fe48380-b839-11e8-95d4-42be1a176902.jpg)
+![screenshot_20180914-161603_drive](https://user-images.githubusercontent.com/25606217/45535528-bd195200-b839-11e8-8b09-414dd5ced5a4.jpg)
+
+time $k$에 새로운 measurement $z_k$가 도착하면 확률분포 $q$로부터 particle $x^i_k$를 $N_s$개 뽑아내고 normalized weight를 구한다. 만약 degeneracy가 탐지되면, resampling을 수행한다.
+
+#### Sample Impoverishment
+이전에 구성된 particle cloud 안에서만 resample을 수행하면, 새로운 영역 탐색이 불가능하지 않을까? 새롭게 구성된 particle set에는 중복된 위치의 particle들이 존재할 수 있고, 이것은 diversity를 저해한다.  이러한 문제는 sample [impoverishment](https://endic.naver.com/search.nhn?sLn=kr&isOnlyViewEE=N&query=impoverishment)라고도 불리는데, process noise가 매우 작은 경우(내가 풀려는 문제는 게다가 target이 stationary인 경우이다..)에는 몇 번의 iteration만에 single point로 particle들이 다 모일 수 있다. 그런데 논문의 footnote를 살펴보니 아래와 같은 문구가 있었다.
+
+> If the process noise is zero, then using a particle filter is not entirely appropriate. Particle filtering is a method well suited to the estimation of dynamic states. If static states, which can be regarded as parameters, need to be estimated then alternative approaches are [7],[27]
+
+[27] [Combined Parameter and State Estimation in Simulation-Based Filtering](https://link.springer.com/chapter/10.1007/978-1-4757-3437-9_10)
+
+위 논문은 향후에 읽어보도록 하자. 
+
+---
+다음 post에서는여러가지 변형 Particle Filter 알고리즘들을 다룰 예정이다.
