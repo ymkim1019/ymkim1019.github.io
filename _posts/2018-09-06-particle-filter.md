@@ -108,9 +108,9 @@ $$p(z_k|z_{1:k-1})=\int{p(z_k|x_k)p(x_k|z_{1:k-1})}dk_x\tag{4}$$
 * $N_s$ : support point(particles)의 수
 * $k$ : measurement time
 * $x_{0:k}$ : time $k$까지의 set of states
-* $\{ x^i_{0:k}\}^{N_s}_{i=1}$ : set of support points
+* $\\{ x^i_{0:k}\\}^{N_s}_{i=1}$ : set of support points
 * $w^i_k$ : k시점에서 support point $i$의 weight
-* $\{ x^i_{0:k}, w^i_k \}^{N_s}_{i=1}$ : posterior pdf를 특징짓는 random measure
+* $\\{ x^i_{0:k}, w^i_k \\}^{N_s}_{i=1}$ : posterior pdf를 특징짓는 random measure
 
 probability distribution으로 만들기 위해 weight의 합은 1이 되어야 한다. 시간 k에서의 posterior density는 다음과 같이 approximate될 수 있다.
 
