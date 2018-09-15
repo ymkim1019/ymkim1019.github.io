@@ -86,7 +86,7 @@ analytics:
 # Site Author
 author:
   name             : "Youngmin Kim"
-  avatar           : "/assets/images/profile.png"
+  avatar           : "/assets/images/profile.jpg"
   bio              : "직장인/Ph.D 학생"
   location         : "Korea"
   email            : "ymkim1019@gmail.com"
@@ -98,7 +98,7 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           : "junhobaik"
+  github           : "ymkim1019"
   gitlab           :
   google_plus      :
   keybase          :
