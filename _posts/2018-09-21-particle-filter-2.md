@@ -142,4 +142,4 @@ A=[8c_{n_x}^{-1}(n_x+4)(2\sqrt{\pi})^{n_x}]^{1/(n_x+4)}
 $$
 
 ---
-다음 포스팅에서는 importance density $q()$에 대해 알아보도록 하겠다.
+다음 포스팅에서는 importance density $q()$에 대해 알아보도록 하겠다. 
