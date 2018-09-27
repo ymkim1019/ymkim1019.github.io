@@ -142,12 +142,5 @@ A=[8c_{n_x}^{-1}(n_x+4)(2\sqrt{\pi})^{n_x}]^{1/(n_x+4)}
 \end{aligned}\tag{10}
 $$
 
-## Choice of Importance Density
-다음 궁금증은 importance density $q$를 어떻게 정할 것인지이다. 
-
-* optimal 
-* prior sampling
-* likelihood sampling
-* optimal sampling with linearized likelihood
-
-stationary인 경우에는 $p(x_k|x_{k-1})$을 써도 될 듯..
+---
+다음 포스팅에서는 importance density $q()$에 대해 알아보도록 하겠다.
